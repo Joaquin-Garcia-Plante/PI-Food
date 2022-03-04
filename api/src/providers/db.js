@@ -1,10 +1,10 @@
 const mainRouteDb = (infoDb) => {
   let respuesta = infoDb.map((r) => {
+    var diets = r.diets.map((d) => d.name);
     return {
       title: r.title,
-      diets: r.diets,
+      diets,
       id: r.id,
-      createdInDB: r.createdInDB,
     };
   });
   return respuesta;
@@ -15,7 +15,6 @@ const detailRouteDb = (infoDb) => {
     return {
       title: r.title,
       diets: r.diets,
-      id: r.id,
       summary: r.summary,
       spoonacularScore: r.spoonacularScore,
       healthScore: r.healthScore,

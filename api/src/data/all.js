@@ -1,13 +1,9 @@
-const { getAllApiRecipes } = require("./api");
-const { getDbInfo } = require("./db");
-const { mainRoute } = require("../providers/api");
-const { mainRouteDb } = require("../providers/db");
+const { getApiRecipes } = require("./api");
+const { getDbRecipes } = require("./db");
 
 const getAllRecipes = async () => {
-  let apiInfo = await getAllApiRecipes();
-  apiInfo = mainRoute(apiInfo);
-  let dbInfo = await getDbInfo();
-  dbInfo = mainRouteDb(dbInfo);
+  let apiInfo = await getApiRecipes();
+  let dbInfo = await getDbRecipes();
   let respuesta = apiInfo.concat(dbInfo);
   return respuesta;
 };

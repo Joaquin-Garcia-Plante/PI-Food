@@ -1,21 +1,22 @@
 const axios = require("axios");
-const { detailRoute } = require("../providers/api");
+const { detailRouteApi, mainRouteApi } = require("../providers/api");
 require("dotenv").config();
 const { API_KEY } = process.env;
 
-const getAllApiRecipes = async () => {
+const getApiRecipes = async () => {
   const apiInfo = await axios.get(
     `https://api.spoonacular.com/recipes/complexSearch?apiKey=${API_KEY}&addRecipeInformation=true&number=100`
   );
-  const result = apiInfo.data.results;
+  let result = apiInfo.data.results;
+  result = mainRouteApi(result);
   return result;
 };
-const getDetailRecipe = async (id) => {
+const getApiRecipeDetail = async (id) => {
   const apiInfo = await axios.get(
-    `https://api.spoonacular.com/recipes/${id}/information?apiKey=1db02e94b5b54f3e8974e5c8e0e972f5`
+    `https://api.spoonacular.com/recipes/${id}/information?apiKey=0daf0d0f166d4cf6a1e12874055b89d3`
   );
-  let result = detailRoute(apiInfo.data);
+  let result = detailRouteApi(apiInfo.data);
   return result;
 };
 
-module.exports = { getAllApiRecipes, getDetailRecipe };
+module.exports = { getApiRecipes, getApiRecipeDetail };

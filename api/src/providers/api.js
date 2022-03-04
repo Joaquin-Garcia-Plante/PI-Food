@@ -1,4 +1,4 @@
-const mainRoute = (apiInfo) => {
+const mainRouteApi = (apiInfo) => {
   let respuesta = apiInfo.map((r) => {
     image = r.image;
     title = r.title;
@@ -25,7 +25,7 @@ const mainRoute = (apiInfo) => {
   return respuesta;
 };
 
-const detailRoute = function (apiInfo) {
+const detailRouteApi = function (apiInfo) {
   let formatByDetail = function (r) {
     image = r.image;
     title = r.title;
@@ -62,6 +62,6 @@ const detailRoute = function (apiInfo) {
 };
 
 module.exports = {
-  mainRoute,
-  detailRoute,
+  mainRouteApi,
+  detailRouteApi,
 };

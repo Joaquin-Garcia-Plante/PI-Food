@@ -1,5 +1,5 @@
 const { Recipe, Diet } = require("../db");
-const { detailRouteDb } = require("../providers/db");
+const { detailRouteDb, mainRouteDb } = require("../providers/db");
 let diets = [
   "gluten free",
   "ketogenic",
@@ -13,8 +13,9 @@ let diets = [
   "low FODMAP",
   "whole30",
 ];
-const getDbInfo = async () => {
+const getDbRecipes = async () => {
   let allDbRecipes = await Recipe.findAll({
+    attributes: { exclude: ["createdAt", "updatedAt"] },
     include: [
       {
         model: Diet,
@@ -25,9 +26,10 @@ const getDbInfo = async () => {
       },
     ],
   });
+  allDbRecipes = mainRouteDb(allDbRecipes);
   return allDbRecipes;
 };
-const getDbDetail = async (id) => {
+const getDbRecipeDetail = async (id) => {
   var recipe = await Recipe.findByPk(id, {
     attributes: { exclude: ["createdAt", "updatedAt"] },
     include: {
@@ -35,7 +37,6 @@ const getDbDetail = async (id) => {
       as: "diets",
       through: { attributes: [] },
       attributes: ["name"],
-      exclude: ["recipe_diet"],
     },
   });
   if (recipe) {
@@ -53,11 +54,16 @@ const setDbDiets = async () => {
 
 const getDbDiets = async () => {
   await setDbDiets();
-  return await Diet.findAll();
+  let diets = null;
+  let resp = await Diet.findAll({
+    attributes: { exclude: ["id", "createdAt", "updatedAt"] },
+  });
+  diets = resp.map((d) => d.name);
+  return diets;
 };
 
 module.exports = {
   getDbDiets,
-  getDbInfo,
-  getDbDetail,
+  getDbRecipes,
+  getDbRecipeDetail,
 };
