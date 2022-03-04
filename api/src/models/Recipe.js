@@ -10,25 +10,26 @@ module.exports = (sequelize) => {
       allowNull: false,
       primaryKey: true,
     },
-    name: {
+    title: {
       type: DataTypes.STRING,
       allowNull: false,
     },
-    resume: {
+    summary: {
       type: DataTypes.TEXT,
       allowNull: false,
     },
-    punctuation: {
+    spoonacularScore: {
       type: DataTypes.FLOAT,
     },
-    level: {
+    healthScore: {
       type: DataTypes.FLOAT,
     },
-    steps: {
+    instructions: {
       type: DataTypes.TEXT,
     },
     createdInDB: {
       type: DataTypes.BOOLEAN,
+      allowNull: false,
       defaultValue: true,
     },
   });

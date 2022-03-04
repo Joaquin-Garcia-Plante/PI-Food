@@ -4,8 +4,8 @@ Si no existe ninguna receta mostrar un mensaje adecuado
 (Comentario: Supongo que debo agregarle a esta ruta el caso de que no me pasen name, de ser cierto deberia mostrar todas las recetas)
 * Ruta principal: debe contener
 Área donde se verá el listado de recetas. Deberá mostrar su:
--Imagen
--Nombre
+-Imagen(image)
+-Nombre(title)
 -Tipo de dieta (vegetariano, vegano, apto celíaco, etc)
 Para los tipos de dieta deben tener en cuenta las propiedades vegetarian, vegan, glutenFree por un lado y también analizar las que se incluyan dentro de la propiedad diets
 
@@ -16,10 +16,10 @@ Debe traer solo los datos pedidos en la ruta de detalle de receta
 Incluir los tipos de dieta asociados
 * Ruta de detalle de receta: debe contener
 -Los campos mostrados en la ruta principal para cada receta (imagen, nombre, tipo de plato y tipo de dieta)
--Resumen del plato
--Puntuación
--Nivel de "comida saludable"
--Paso a paso
+-Resumen del plato(summary)
+-Puntuación(spoonacularScore)
+-Nivel de "comida saludable"(healthScore)
+-Paso a paso(instructions)
 
 
 $ GET /types:
