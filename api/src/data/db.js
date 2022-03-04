@@ -31,10 +31,8 @@ const getDbRecipes = async () => {
 };
 const getDbRecipeDetail = async (id) => {
   var recipe = await Recipe.findByPk(id, {
-    attributes: { exclude: ["createdAt", "updatedAt"] },
     include: {
       model: Diet,
-      as: "diets",
       through: { attributes: [] },
       attributes: ["name"],
     },
