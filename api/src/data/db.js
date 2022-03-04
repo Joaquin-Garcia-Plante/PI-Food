@@ -15,7 +15,6 @@ let diets = [
 ];
 const getDbRecipes = async () => {
   let allDbRecipes = await Recipe.findAll({
-    attributes: { exclude: ["createdAt", "updatedAt"] },
     include: [
       {
         model: Diet,
