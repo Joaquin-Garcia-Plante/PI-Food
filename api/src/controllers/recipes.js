@@ -1,11 +1,21 @@
 const isUUID = require("is-uuid");
 const { getDbRecipeDetail } = require("../data/db");
 const { getApiRecipeDetail } = require("../data/api");
-const { getAllRecipes } = require("../data/all");
+const { getAllRecipes, getRecipesFilteredByName } = require("../data/all");
 
 const recipes = async (req, res) => {
-  let allRecipes = await getAllRecipes();
-  res.status(200).send(allRecipes);
+  let { name } = req.query;
+  if (name) {
+    let respuesta = await getRecipesFilteredByName(name);
+    if (respuesta.length) {
+      res.status(200).send(respuesta);
+    } else {
+      res.status(200).send("No se encontraron coincidencias");
+    }
+  } else {
+    let allRecipes = await getAllRecipes();
+    res.status(200).send(allRecipes);
+  }
 };
 const recipesID = async (req, res) => {
   let { id } = req.params;
