@@ -4,13 +4,13 @@ let diets = [
   "gluten free",
   "ketogenic",
   "vegetarian",
-  "lacto vegetarian",
-  "ovo vegetarian",
+  "lacto-vegetarian",
+  "ovo-vegetarian",
   "vegan",
   "pescetarian",
   "paleo",
   "primal",
-  "low FODMAP",
+  "low-FODMAP",
   "whole30",
 ];
 const getDbRecipes = async () => {

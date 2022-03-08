@@ -1,13 +1,39 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { getRecipes } from "../Store/actions";
 import { Link } from "react-router-dom";
 import Card from "./Card";
+import Paginado from "./Paginado";
 function Home() {
+  const allRecipes = useSelector((state) => state.recipes);
+
+  //!Paginado
+
+  //Primero me defino un estado local con la pagina actual
+  //Empieza en uno porque siempre voy a arrancar desde la primer pagina
+  const [currentPage, setCurrentPage] = useState(1);
+  //Estado local que me va a indicar cuantas recetas tengo por pagina
+  const [recipesPerPage, setRecipesPerPage] = useState(9);
+  //Indice de la ultima receta que yo tengo en la pagina
+  //En un principio va a ser 6
+  const indexOfLastRecipe = currentPage * recipesPerPage;
+  //Indice de la primer receta
+  const indexOfFirstRecipe = indexOfLastRecipe - recipesPerPage;
+  //Constante para contener las recetas que estan en la pagina actual
+  //Me traigo todas las recetas y le hago un slice para recortar, solo me quedo con las recetas que esten entre el
+  //indice de mi primer receta y el indice de mi utlima receta
+  const currentRecipes = allRecipes.slice(
+    indexOfFirstRecipe,
+    indexOfLastRecipe
+  );
+
+  //Lo que hace esta constante es unicamente setear el estado de mi pagina actual
+  const paginado = (pageNumber) => {
+    setCurrentPage(pageNumber);
+  };
   //Me traigo el dispatch para poder ir despachando las acciones
   const dispatch = useDispatch();
   //Obtengo las recetas del estado
-  const allRecipes = useSelector((state) => state.recipes);
   //Hook para que cuando se monte el componente me traiga todas las recetas
   //En el arreglo irian las dependencias
   useEffect(() => {
@@ -55,12 +81,18 @@ function Home() {
           <option value={"low FODMAP"}>low FODMAP</option>
           <option value={"whole30"}>whole30</option>
         </select>
-        {allRecipes &&
-          allRecipes.map((e) => {
+        <Paginado
+          recipesPerPage={recipesPerPage}
+          allRecipes={allRecipes.length}
+          paginado={paginado}
+        ></Paginado>
+        {currentRecipes &&
+          currentRecipes.map((e) => {
             return (
               <Link key={e.id} to={"/recipes/" + e.id}>
                 <Card
                   key={e.id}
+                  id={e.id}
                   title={e.title}
                   image={e.image}
                   diets={e.diets}

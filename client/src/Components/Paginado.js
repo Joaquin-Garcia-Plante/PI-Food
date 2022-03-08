@@ -1,0 +1,28 @@
+import React from "react";
+//Este componente va a ser el que renderice todos los numeritos en si
+function Paginado({ recipesPerPage, allRecipes, paginado }) {
+  const pageNumbers = [];
+
+  //Math.ceil me redondea el resultado para arriba
+  for (var i = 0; i < Math.ceil(allRecipes / recipesPerPage); i++) {
+    pageNumbers.push(i + 1);
+  }
+  return (
+    <nav>
+      <ul>
+        {pageNumbers &&
+          pageNumbers.map((num) => {
+            return (
+              <li key={num}>
+                <a onClick={() => paginado(num)} href>
+                  {num}
+                </a>
+              </li>
+            );
+          })}
+      </ul>
+    </nav>
+  );
+}
+
+export default Paginado;

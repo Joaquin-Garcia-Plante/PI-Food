@@ -13,7 +13,7 @@ const getApiRecipes = async () => {
 };
 const getApiRecipeDetail = async (id) => {
   const apiInfo = await axios.get(
-    `https://api.spoonacular.com/recipes/${id}/information?apiKey=0daf0d0f166d4cf6a1e12874055b89d3`
+    `https://api.spoonacular.com/recipes/${id}/information?apiKey=1db02e94b5b54f3e8974e5c8e0e972f5`
   );
   let result = detailRouteApi(apiInfo.data);
   return result;
