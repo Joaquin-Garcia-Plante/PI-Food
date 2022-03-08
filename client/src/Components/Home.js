@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { getRecipes } from "../Store/actions";
+//Para poder filtrar primero necesito traerme la accion
+import { getRecipes, filterRecipesByDiets } from "../Store/actions";
 import { Link } from "react-router-dom";
 import Card from "./Card";
 import Paginado from "./Paginado";
@@ -8,7 +9,6 @@ function Home() {
   const allRecipes = useSelector((state) => state.recipes);
 
   //!Paginado
-
   //Primero me defino un estado local con la pagina actual
   //Empieza en uno porque siempre voy a arrancar desde la primer pagina
   const [currentPage, setCurrentPage] = useState(1);
@@ -45,6 +45,15 @@ function Home() {
     e.preventDefault();
     dispatch(getRecipes());
   }
+  //Funcion que me va a traer el filtro del las dietas
+  //Esta funcion se la vamos a pasar al select y cuando se modifique ejecuta la funcion
+  //La funcion va a despachar la accion que filtra
+  function handleFilterDiets(e) {
+    e.preventDefault();
+    //e.target.value toma el valor de los value de cada una de las opciones
+    //Ademas eso es lo que le llega a la accion como payload
+    dispatch(filterRecipesByDiets(e.target.value));
+  }
   return (
     <div>
       <Link to={"/recipe"}>Crear Receta</Link>
@@ -57,18 +66,23 @@ function Home() {
         Volver a cargar todas las recetas
       </button>
       <div>
+        <span>Filtrar por orden alfabetico</span>
         <select>
           {/* <h3>Filter by alphabetical order</h3> */}
           <option value="alph_asc">Ascendent</option>
           <option value="alph_desc">Descendent</option>
         </select>
+        <span>Filtrar por puntuación</span>
         <select>
           {/* <h3>Filter by score</h3> */}
           <option value={"score_asc"}>Ascendent</option>
           <option value={"score_desc"}>Descendent</option>
         </select>
-        <select>
+        <span>Filter by diets</span>
+        <select onChange={(e) => handleFilterDiets(e)}>
           {/* <h3>Filter by type of diet</h3> */}
+          <option>Seleccionar...</option>
+          <option value={"all"}>Todas</option>
           <option value={"gluten free"}>gluten free</option>
           <option value={"ketogenic"}>ketogenic</option>
           <option value={"vegetarian"}>vegetarian</option>

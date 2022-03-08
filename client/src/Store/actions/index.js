@@ -12,3 +12,13 @@ export function getRecipes() {
     } catch (e) {}
   };
 }
+//La accion recibe un payload que va a ser el value que me va a llegar
+//Toda la logica es mejor hacerla en el reducer o en el componente en sí
+
+export function filterRecipesByDiets(payload) {
+  console.log(payload);
+  return {
+    type: "FILTER_BY_RECIPES",
+    payload: payload,
+  };
+}

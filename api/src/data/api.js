@@ -1,6 +1,6 @@
+require("dotenv").config();
 const axios = require("axios");
 const { detailRouteApi, mainRouteApi } = require("../providers/api");
-require("dotenv").config();
 const { API_KEY } = process.env;
 
 const getApiRecipes = async () => {
@@ -13,7 +13,7 @@ const getApiRecipes = async () => {
 };
 const getApiRecipeDetail = async (id) => {
   const apiInfo = await axios.get(
-    `https://api.spoonacular.com/recipes/${id}/information?apiKey=1db02e94b5b54f3e8974e5c8e0e972f5`
+    `https://api.spoonacular.com/recipes/${id}/information?apiKey=${API_KEY}`
   );
   let result = detailRouteApi(apiInfo.data);
   return result;

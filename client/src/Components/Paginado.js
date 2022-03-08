@@ -14,9 +14,7 @@ function Paginado({ recipesPerPage, allRecipes, paginado }) {
           pageNumbers.map((num) => {
             return (
               <li key={num}>
-                <a onClick={() => paginado(num)} href>
-                  {num}
-                </a>
+                <a onClick={() => paginado(num)}>{num}</a>
               </li>
             );
           })}
