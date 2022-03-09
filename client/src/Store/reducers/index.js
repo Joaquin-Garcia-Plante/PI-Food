@@ -2,6 +2,7 @@ const initialState = {
   recipes: [],
   //Copia de todas las recetas para realizar los filtrados
   allRecipes: [],
+  recipe: {},
 };
 
 function rootReducer(state = initialState, action) {
@@ -20,6 +21,11 @@ function rootReducer(state = initialState, action) {
       return {
         ...state,
         recipes: statusFiltered,
+      };
+    case "GET_RECIPE":
+      return {
+        ...state,
+        recipe: action.payload,
       };
     case "ORDER_BY_TITLE":
       let sortedArrByTitle =

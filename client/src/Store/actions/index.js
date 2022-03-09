@@ -9,11 +9,29 @@ export function getRecipes() {
         type: "GET_RECIPES",
         payload: json.data,
       });
-    } catch (e) {}
+    } catch (e) {
+      console.log(e);
+    }
   };
 }
 //La accion recibe un payload que va a ser el value que me va a llegar
 //Toda la logica es mejor hacerla en el reducer o en el componente en sí
+
+//Accion para acceder al detalle de una receta
+
+export function getRecipe(id) {
+  return async function (dispatch) {
+    try {
+      var json = await axios.get(`http://localhost:3001/recipes/${id}`);
+      return dispatch({
+        type: "GET_RECIPE",
+        payload: json.data,
+      });
+    } catch (e) {
+      console.log(e);
+    }
+  };
+}
 
 export function filterRecipesByDiets(payload) {
   console.log(payload);

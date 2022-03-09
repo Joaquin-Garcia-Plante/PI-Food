@@ -122,7 +122,7 @@ function Home() {
         {currentRecipes &&
           currentRecipes.map((e) => {
             return (
-              <Link key={e.id} to={"/recipes/" + e.id}>
+              <Link key={e.id} to={`/recipes/${e.id}`}>
                 <Card
                   key={e.id}
                   id={e.id}

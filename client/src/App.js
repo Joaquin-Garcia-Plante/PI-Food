@@ -2,6 +2,7 @@ import "./App.css";
 import { BrowserRouter, Route, Switch } from "react-router-dom";
 import LandingPage from "./Components/LandingPage";
 import Home from "./Components/Home";
+import Detail from "./Components/Detail";
 function App() {
   return (
     <BrowserRouter>
@@ -9,8 +10,8 @@ function App() {
         <Switch>
           <Route exact path={"/"} component={LandingPage}></Route>
           <Route path={"/home"} component={Home}></Route>
+          <Route path="/recipes/:id" component={Detail}></Route>
         </Switch>
-        <h1>Henry Food</h1>
       </div>
     </BrowserRouter>
   );
