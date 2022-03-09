@@ -5,6 +5,7 @@ const mainRouteDb = (infoDb) => {
       title: r.title,
       diets,
       id: r.id,
+      spoonacularScore: r.spoonacularScore,
     };
   });
   return respuesta;

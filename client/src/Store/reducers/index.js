@@ -21,6 +21,56 @@ function rootReducer(state = initialState, action) {
         ...state,
         recipes: statusFiltered,
       };
+    case "ORDER_BY_TITLE":
+      let sortedArrByTitle =
+        action.payload === "alph_asc"
+          ? state.recipes.sort(function (a, b) {
+              if (a.title > b.title) {
+                return 1;
+              }
+              if (b.title > a.title) {
+                return -1;
+              }
+              return 0;
+            })
+          : state.recipes.sort(function (a, b) {
+              if (a.title > b.title) {
+                return -1;
+              }
+              if (b.title > a.title) {
+                return 1;
+              }
+              return 0;
+            });
+      return {
+        ...state,
+        recipes: sortedArrByTitle,
+      };
+    case "ORDER_BY_SCORE":
+      let sortedArrByScore =
+        action.payload === "score_asc"
+          ? state.recipes.sort(function (a, b) {
+              if (a.spoonacularScore > b.spoonacularScore) {
+                return 1;
+              }
+              if (b.spoonacularScore > a.spoonacularScore) {
+                return -1;
+              }
+              return 0;
+            })
+          : state.recipes.sort(function (a, b) {
+              if (a.spoonacularScore > b.spoonacularScore) {
+                return -1;
+              }
+              if (b.spoonacularScore > a.spoonacularScore) {
+                return 1;
+              }
+              return 0;
+            });
+      return {
+        ...state,
+        recipes: sortedArrByScore,
+      };
     default:
       return state;
   }

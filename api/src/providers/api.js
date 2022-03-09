@@ -20,6 +20,7 @@ const mainRouteApi = (apiInfo) => {
       diets,
       id,
       dishTypes,
+      spoonacularScore: r.spoonacularScore,
     };
   });
   return respuesta;

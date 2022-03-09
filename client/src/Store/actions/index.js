@@ -22,3 +22,17 @@ export function filterRecipesByDiets(payload) {
     payload: payload,
   };
 }
+
+export function orderByTitle(payload) {
+  return {
+    type: "ORDER_BY_TITLE",
+    payload: payload,
+  };
+}
+
+export function orderByScore(payload) {
+  return {
+    type: "ORDER_BY_SCORE",
+    payload: payload,
+  };
+}

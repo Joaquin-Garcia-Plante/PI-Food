@@ -1,7 +1,12 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 //Para poder filtrar primero necesito traerme la accion
-import { getRecipes, filterRecipesByDiets } from "../Store/actions";
+import {
+  getRecipes,
+  filterRecipesByDiets,
+  orderByTitle,
+  orderByScore,
+} from "../Store/actions";
 import { Link } from "react-router-dom";
 import Card from "./Card";
 import Paginado from "./Paginado";
@@ -26,7 +31,9 @@ function Home() {
     indexOfFirstRecipe,
     indexOfLastRecipe
   );
-
+  //Este estado local solo voy a utilizarlo para que renderizar cuando seteo la pagina en mi handle de ordenamiento
+  const [order, setOrder] = useState("");
+  const [OrderByScore, setOrderByScore] = useState("");
   //Lo que hace esta constante es unicamente setear el estado de mi pagina actual
   const paginado = (pageNumber) => {
     setCurrentPage(pageNumber);
@@ -54,6 +61,19 @@ function Home() {
     //Ademas eso es lo que le llega a la accion como payload
     dispatch(filterRecipesByDiets(e.target.value));
   }
+  function handleSortByTitle(e) {
+    e.preventDefault();
+    dispatch(orderByTitle(e.target.value));
+    setCurrentPage(1);
+    //Cuando seteo este estado se va a renderizar la pagina
+    setOrder(`Ordenado ${e.target.value}`);
+  }
+  function handleSortByScore(e) {
+    e.preventDefault();
+    dispatch(orderByScore(e.target.value));
+    setCurrentPage(1);
+    setOrderByScore(`Ordenado ${e.target.value}`);
+  }
   return (
     <div>
       <Link to={"/recipe"}>Crear Receta</Link>
@@ -67,13 +87,13 @@ function Home() {
       </button>
       <div>
         <span>Filtrar por orden alfabetico</span>
-        <select>
+        <select onChange={(e) => handleSortByTitle(e)}>
           {/* <h3>Filter by alphabetical order</h3> */}
           <option value="alph_asc">Ascendent</option>
           <option value="alph_desc">Descendent</option>
         </select>
         <span>Filtrar por puntuación</span>
-        <select>
+        <select onChange={(e) => handleSortByScore(e)}>
           {/* <h3>Filter by score</h3> */}
           <option value={"score_asc"}>Ascendent</option>
           <option value={"score_desc"}>Descendent</option>
@@ -86,11 +106,10 @@ function Home() {
           <option value={"gluten free"}>gluten free</option>
           <option value={"ketogenic"}>ketogenic</option>
           <option value={"vegetarian"}>vegetarian</option>
-          <option value={"lacto vegetarian"}>lacto vegetarian</option>
-          <option value={"ovo vegetarian"}>ovo vegetarian</option>
+          <option value={"lacto ovo vegetarian"}>lacto ovo vegetarian</option>
           <option value={"vegan"}>vegan</option>
           <option value={"pescetarian"}>pescetarian</option>
-          <option value={"paleo"}>paleo</option>
+          <option value={"paleolithic"}>paleolithic</option>
           <option value={"primal"}>primal</option>
           <option value={"low FODMAP"}>low FODMAP</option>
           <option value={"whole30"}>whole30</option>
