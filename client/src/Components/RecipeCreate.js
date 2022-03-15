@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { postRecipe } from "../Store/actions";
-
+import "../Styles/RecipeCreate.css";
 function RecipeCreate() {
   // const [checked, setChecked] = useState({});
   const dispatch = useDispatch();
@@ -65,32 +65,23 @@ function RecipeCreate() {
     }
     dispatch(postRecipe(data));
     alert("Receta creada correctamente");
-    // setData({
-    //   title: "",
-    //   summary: "",
-    //   spoonacularScore: "",
-    //   healthScore: "",
-    //   instructions: "",
-    //   diet: [],
-    // });
+    setData({
+      title: "",
+      summary: "",
+      spoonacularScore: "",
+      healthScore: "",
+      instructions: "",
+      diet: [],
+    });
   }
-  // function handleDisabled(e) {
-  //   e.preventDefault();
-  //   for (let key in data) {
-  //     if (!key) {
-  //       setDisabled(false);
-  //     } else {
-  //       setDisabled(true);
-  //     }
-  //   }
-  // }
   return (
-    <div>
+    <div className="container-form">
       <h1>Crea tu propia receta!</h1>
       <form onSubmit={handleSubmit}>
         <div>
-          <label>Title:</label>
+          <p>Title:</p>
           <input
+            type={"text"}
             id="title"
             name="title"
             value={data.title}
@@ -98,27 +89,40 @@ function RecipeCreate() {
           ></input>
         </div>
         <div>
-          <label>Summary:</label>
-          <input
+          <p>Summary:</p>
+          <textarea
+            type={"text"}
             id="summary"
             name="summary"
             value={data.summary}
             onChange={handleOnChange}
-          ></input>
+          ></textarea>
         </div>
         <div>
-          <label>Score</label>
+          <p>Instructions</p>
+          <textarea
+            id="instructions"
+            name="instructions"
+            value={data.instructions}
+            onChange={handleOnChange}
+          ></textarea>
+        </div>
+        <div className="score">
+          <label>Score &nbsp;</label>
           <input
+            min="0"
+            max="100"
             value={data.spoonacularScore}
             id="spoonacularScore"
             name="spoonacularScore"
             type={"number"}
             onChange={handleOnChange}
           ></input>
-        </div>
-        <div>
-          <label>Healt Score</label>
+          &nbsp;
+          <label>Healt Score &nbsp;</label>
           <input
+            min="0"
+            max="100"
             id="healthScore"
             name="healthScore"
             type={"number"}
@@ -126,31 +130,24 @@ function RecipeCreate() {
             onChange={handleOnChange}
           ></input>
         </div>
-        <div>
-          <label>Instructions</label>
-          <input
-            id="instructions"
-            name="instructions"
-            value={data.instructions}
-            onChange={handleOnChange}
-          ></input>
+        <br></br>
+        <label>Diets</label>
+        <div className="container-diets">
+          {diet.map((d) => {
+            return (
+              <div key={d}>
+                <input
+                  value={d}
+                  type={"checkbox"}
+                  id={d}
+                  onChange={handleChangeCheck}
+                ></input>
+                <label>{d}</label>
+              </div>
+            );
+          })}
         </div>
-        <div>
-          <label>Diets</label>
-        </div>
-        {diet.map((d) => {
-          return (
-            <div key={d}>
-              <input
-                value={d}
-                type={"checkbox"}
-                id={d}
-                onChange={handleChangeCheck}
-              ></input>
-              <label>{d}</label>
-            </div>
-          );
-        })}
+
         <input type={"submit"} value="submit"></input>
       </form>
     </div>

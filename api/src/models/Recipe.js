@@ -10,6 +10,12 @@ module.exports = (sequelize) => {
       allowNull: false,
       primaryKey: true,
     },
+    image: {
+      type: DataTypes.TEXT,
+      allowNull: false,
+      defaultValue:
+        "https://icon-library.com/images/recipe-icon-png/recipe-icon-png-8.jpg",
+    },
     title: {
       type: DataTypes.STRING,
       allowNull: false,

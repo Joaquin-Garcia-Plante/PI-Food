@@ -53,6 +53,12 @@ function rootReducer(state = initialState, action) {
         ...state,
         recipes: sortedArrByTitle,
       };
+    case "SEARCH_RECIPE":
+      return {
+        ...state,
+        recipes: action.payload,
+      };
+
     case "ORDER_BY_SCORE":
       let sortedArrByScore =
         action.payload === "score_asc"

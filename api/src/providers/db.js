@@ -6,6 +6,7 @@ const mainRouteDb = (infoDb) => {
       diets,
       id: r.id,
       spoonacularScore: r.spoonacularScore,
+      image: r.image,
     };
   });
   return respuesta;
@@ -15,6 +16,7 @@ const detailRouteDb = (infoDb) => {
   let formatByDetail = function (r) {
     return {
       title: r.title,
+      image: r.image,
       diets: r.diets,
       summary: r.summary,
       spoonacularScore: r.spoonacularScore,

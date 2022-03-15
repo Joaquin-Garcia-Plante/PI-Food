@@ -33,6 +33,20 @@ export function getRecipe(id) {
   };
 }
 
+export function getRecipeBySearch(data) {
+  return async function (dispatch) {
+    try {
+      var json = await axios.get(`http://localhost:3001/recipes?name=${data}`);
+      return dispatch({
+        type: "SEARCH_RECIPE",
+        payload: json.data,
+      });
+    } catch (e) {
+      console.log(e);
+    }
+  };
+}
+
 export function filterRecipesByDiets(payload) {
   console.log(payload);
   return {

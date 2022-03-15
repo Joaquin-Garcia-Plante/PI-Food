@@ -51,9 +51,7 @@ const setDbDiets = async () => {
 const getDbDiets = async () => {
   await setDbDiets();
   let diets = null;
-  let resp = await Diet.findAll({
-    attributes: { exclude: ["id", "createdAt", "updatedAt"] },
-  });
+  let resp = await Diet.findAll();
   diets = resp.map((d) => d.name);
   return diets;
 };
@@ -63,3 +61,6 @@ module.exports = {
   getDbRecipes,
   getDbRecipeDetail,
 };
+// {
+//     attributes: { exclude: ["id", "createdAt", "updatedAt"] },
+//   }
