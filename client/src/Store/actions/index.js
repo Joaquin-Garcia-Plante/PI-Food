@@ -54,3 +54,20 @@ export function orderByScore(payload) {
     payload: payload,
   };
 }
+
+export function postRecipe(recipe) {
+  return async function (dispatch) {
+    try {
+      await axios({
+        method: "post",
+        url: "http://localhost:3001/recipe",
+        data: recipe,
+      });
+      return dispatch({
+        type: "POST_RECIPE",
+      });
+    } catch (e) {
+      console.log(e);
+    }
+  };
+}

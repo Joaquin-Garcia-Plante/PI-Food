@@ -3,6 +3,7 @@ const initialState = {
   //Copia de todas las recetas para realizar los filtrados
   allRecipes: [],
   recipe: {},
+  msg: "",
 };
 
 function rootReducer(state = initialState, action) {
@@ -76,6 +77,10 @@ function rootReducer(state = initialState, action) {
       return {
         ...state,
         recipes: sortedArrByScore,
+      };
+    case "POST_RECIPE":
+      return {
+        ...state,
       };
     default:
       return state;
