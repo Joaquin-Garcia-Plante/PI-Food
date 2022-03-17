@@ -1,0 +1,95 @@
+@import url(https://fonts.googleapis.com/css?family=Open+Sans);
+.wrap {
+  height: 60px;
+  background-color: rgba(94, 94, 94, 0.7);
+}
+
+.search {
+  width: 25%;
+  position: relative;
+  display: flex;
+  padding: 10px;
+  left: 36%;
+}
+
+.searchTerm {
+  width: 100%;
+  border: 3px solid #ffad01;
+  border-right: none;
+  padding: 5px;
+  height: 20px;
+  border-radius: 5px 0 0 5px;
+  outline: none;
+  color: #9dbfaf;
+}
+
+.searchTerm:focus {
+  color: black;
+}
+
+.searchButton {
+  width: 40px;
+  border: 1px solid #ffad01;
+  background: #ffad01;
+  text-align: center;
+  color: #fff;
+  border-radius: 0 5px 5px 0;
+  cursor: pointer;
+  font-size: 20px;
+}
+
+/*Resize the wrap to see the search bar change!*/
+
+x {
+  -webkit-transition: all 200ms cubic-bezier(0.39, 0.5, 0.15, 1.36);
+  -moz-transition: all 200ms cubic-bezier(0.39, 0.5, 0.15, 1.36);
+  -ms-transition: all 200ms cubic-bezier(0.39, 0.5, 0.15, 1.36);
+  -o-transition: all 200ms cubic-bezier(0.39, 0.5, 0.15, 1.36);
+  transition: all 200ms cubic-bezier(0.39, 0.5, 0.15, 1.36);
+  display: block;
+  margin: 20px auto;
+  max-width: 180px;
+  text-decoration: none;
+  border-radius: 4px;
+  padding: 8px 30px;
+  position: relative;
+  top: -66px;
+  right: 36%;
+}
+y {
+  -webkit-transition: all 200ms cubic-bezier(0.39, 0.5, 0.15, 1.36);
+  -moz-transition: all 200ms cubic-bezier(0.39, 0.5, 0.15, 1.36);
+  -ms-transition: all 200ms cubic-bezier(0.39, 0.5, 0.15, 1.36);
+  -o-transition: all 200ms cubic-bezier(0.39, 0.5, 0.15, 1.36);
+  transition: all 200ms cubic-bezier(0.39, 0.5, 0.15, 1.36);
+  display: block;
+  margin: 20px auto;
+  max-width: 180px;
+  text-decoration: none;
+  border-radius: 4px;
+  padding: 8px 30px;
+  position: relative;
+  text-decoration: none;
+  top: -123px;
+  left: 36%;
+}
+x.button {
+  color: rgba(255, 255, 255, 0.85);
+  box-shadow: rgba(255, 255, 255, 0.85) 0 0px 0px 2px inset;
+  text-decoration: none;
+}
+
+x.button:hover {
+  color: rgba(30, 22, 54, 0.7);
+  box-shadow: rgba(255, 255, 255, 0.85) 0 0px 0px 40px inset;
+}
+
+y.button {
+  color: rgba(255, 255, 255, 0.85);
+  box-shadow: rgba(255, 255, 255, 0.85) 0 0px 0px 2px inset;
+}
+
+y.button:hover {
+  color: rgba(30, 22, 54, 0.7);
+  box-shadow: rgba(255, 255, 255, 0.85) 0 0px 0px 40px inset;
+}

@@ -5,7 +5,14 @@ import App from "./App";
 import reportWebVitals from "./reportWebVitals";
 import { Provider } from "react-redux";
 import { store } from "./Store";
-
+import bg from "./Assets/background.jpg";
+const containerStyle = {
+  backgroundImage: `url(${bg})`,
+  backgroundRepeat: "no-repeat",
+  backgroundPosition: "center center",
+  backgroundAttachment: "fixed",
+  backgroundSize: "cover",
+};
 ReactDOM.render(
   <Provider store={store}>
     <React.StrictMode>

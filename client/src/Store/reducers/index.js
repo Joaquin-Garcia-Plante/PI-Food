@@ -3,13 +3,25 @@ const initialState = {
   //Copia de todas las recetas para realizar los filtrados
   allRecipes: [],
   recipe: {},
+  loading: false,
+  noMatch: false,
   msg: "",
 };
-
 function rootReducer(state = initialState, action) {
+  state.recipe = {};
   switch (action.type) {
+    case "RECIPE_LIST_LOADING":
+      return {
+        ...state,
+        loading: true,
+      };
     case "GET_RECIPES":
-      return { ...state, recipes: action.payload, allRecipes: action.payload };
+      return {
+        ...state,
+        loading: false,
+        recipes: action.payload,
+        allRecipes: action.payload,
+      };
     case "FILTER_BY_RECIPES":
       //Siempre la logica en el reducer va antes del return
       const allRecipes = state.allRecipes;
@@ -27,6 +39,7 @@ function rootReducer(state = initialState, action) {
       return {
         ...state,
         recipe: action.payload,
+        loading: false,
       };
     case "ORDER_BY_TITLE":
       let sortedArrByTitle =
@@ -57,6 +70,12 @@ function rootReducer(state = initialState, action) {
       return {
         ...state,
         recipes: action.payload,
+        noMatch: false,
+      };
+    case "NO_MATCH":
+      return {
+        ...state,
+        noMatch: true,
       };
 
     case "ORDER_BY_SCORE":

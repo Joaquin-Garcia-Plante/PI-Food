@@ -12,13 +12,11 @@ function Paginado({ recipesPerPage, allRecipes, paginado }) {
     <nav className="page-header">
       <ul id="pagination">
         {pageNumbers &&
-          pageNumbers.map((num) => {
-            return (
-              <li key={num}>
-                <a onClick={() => paginado(num)}>{num}</a>
-              </li>
-            );
-          })}
+          pageNumbers.map((num) => (
+            <li key={num}>
+              <a onClick={() => paginado(num)}>{num}</a>
+            </li>
+          ))}
       </ul>
     </nav>
   );

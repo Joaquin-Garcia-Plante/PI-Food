@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
+import __ from "lodash";
 //Para poder filtrar primero necesito traerme la accion
 import {
   getRecipes,
@@ -14,17 +15,17 @@ import Paginado from "./Paginado";
 import bg from "../Assets/background.jpg";
 import "../Styles/Home.css";
 import Filter from "./Filter";
+import Loading from "./Loading";
+import NavBar from "./NavBar";
 function Home() {
   const allRecipes = useSelector((state) => state.recipes);
+  const loading = useSelector((state) => state.loading);
   const [search, setSearch] = useState("");
+  const noMatch = useSelector((state) => state.noMatch);
   //!Paginado
-  //Primero me defino un estado local con la pagina actual
-  //Empieza en uno porque siempre voy a arrancar desde la primer pagina
+  //estado local con la pagina actual
   const [currentPage, setCurrentPage] = useState(1);
-  //Estado local que me va a indicar cuantas recetas tengo por pagina
   const [recipesPerPage, setRecipesPerPage] = useState(9);
-  //Indice de la ultima receta que yo tengo en la pagina
-  //En un principio va a ser 6
   const indexOfLastRecipe = currentPage * recipesPerPage;
   //Indice de la primer receta
   const indexOfFirstRecipe = indexOfLastRecipe - recipesPerPage;
@@ -37,7 +38,6 @@ function Home() {
   );
   //Este estado local solo voy a utilizarlo para que renderizar cuando seteo la pagina en mi handle de ordenamiento
   const [order, setOrder] = useState("");
-  const [OrderByScore, setOrderByScore] = useState("");
   //Lo que hace esta constante es unicamente setear el estado de mi pagina actual
   const paginado = (pageNumber) => {
     setCurrentPage(pageNumber);
@@ -51,6 +51,13 @@ function Home() {
     dispatch(getRecipes());
   }, []);
 
+  const containerStyle = {
+    backgroundImage: `url(${bg})`,
+    backgroundRepeat: "no-repeat",
+    backgroundPosition: "center center",
+    backgroundAttachment: "fixed",
+    backgroundSize: "cover",
+  };
   function handleClick(e) {
     //Para que no se rompa y no se recargue la pagina
     e.preventDefault();
@@ -76,7 +83,7 @@ function Home() {
     e.preventDefault();
     dispatch(orderByScore(e.target.value));
     setCurrentPage(1);
-    setOrderByScore(`Ordenado ${e.target.value}`);
+    setOrder(`Ordenado ${e.target.value}`);
   }
   function handleSearch(e) {
     setSearch(e.target.value);
@@ -86,58 +93,59 @@ function Home() {
       return alert("Debe ingresar algo para buscar");
     }
     dispatch(getRecipeBySearch(search));
-    setCurrentPage(1);
-    setSearch("");
+    if (noMatch) {
+      return <h1>No se encontraron recetas</h1>;
+    } else {
+      setCurrentPage(1);
+      setSearch("");
+    }
   }
-  const containerStyle = {
-    backgroundImage: `url(${bg})`,
-    backgroundRepeat: "no-repeat",
-    backgroundPosition: "center center",
-    backgroundAttachment: "fixed",
-    backgroundSize: "cover",
-  };
-  return (
-    <div style={containerStyle}>
-      <Link to={"/recipe"}>Crear Receta</Link>
-      <h1 className="welcomeTitle">Welcome to Recipes</h1>
-      <button
-        onClick={(e) => {
-          handleClick(e);
-        }}
-      >
-        Volver a cargar todas las recetas
-      </button>
-      <br></br>
-      <button onClick={searchRecipe}>Search</button>
-      <input onChange={handleSearch}></input>
-      <div>
-        <Filter
-          handleFilterDiets={handleFilterDiets}
-          handleSortByScore={handleSortByScore}
-          handleSortByTitle={handleSortByTitle}
-        ></Filter>
-        {currentRecipes &&
-          currentRecipes.map((e) => {
-            return (
-              <Link key={e.id} to={`/recipes/${e.id}`}>
-                <Card
-                  key={e.id}
-                  id={e.id}
-                  title={e.title}
-                  image={e.image}
-                  diets={e.diets}
-                ></Card>
-              </Link>
-            );
-          })}
-        <Paginado
-          recipesPerPage={recipesPerPage}
-          allRecipes={allRecipes.length}
-          paginado={paginado}
-        ></Paginado>
-      </div>
-    </div>
-  );
+  function showHomePage() {
+    if (loading) {
+      return <Loading></Loading>;
+    }
+    if (!__.isEmpty(allRecipes)) {
+      return (
+        <div style={containerStyle}>
+          <NavBar
+            handleClick={handleClick}
+            searchRecipe={searchRecipe}
+            handleSearch={handleSearch}
+          ></NavBar>
+          <h1 className="welcomeTitle">Welcome to Recipes</h1>
+          <br></br>
+          <Filter
+            handleFilterDiets={handleFilterDiets}
+            handleSortByScore={handleSortByScore}
+            handleSortByTitle={handleSortByTitle}
+          ></Filter>
+          <div>
+            {currentRecipes &&
+              currentRecipes.map((e) => {
+                return (
+                  <Link key={e.id} to={`/recipes/${e.id}`}>
+                    <Card
+                      key={e.id}
+                      id={e.id}
+                      title={e.title}
+                      image={e.image}
+                      diets={e.diets}
+                    ></Card>
+                  </Link>
+                );
+              })}
+            <Paginado
+              recipesPerPage={recipesPerPage}
+              allRecipes={allRecipes.length}
+              paginado={paginado}
+            ></Paginado>
+          </div>
+        </div>
+      );
+    }
+  }
+
+  return <div>{showHomePage()}</div>;
 }
 
 export default Home;

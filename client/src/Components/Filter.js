@@ -1,21 +1,27 @@
 import React from "react";
-
+import "../Styles/Filter.css";
 function Filter({ handleSortByTitle, handleSortByScore, handleFilterDiets }) {
   return (
     <div>
-      <label>Filtrar por orden alfabetico</label>
+      <label className="filterTitle">
+        Filter by alphabetical order &nbsp;&nbsp;
+      </label>
       <select onChange={(e) => handleSortByTitle(e)}>
         <option>Seleccionar...</option>
         <option value="alph_asc">Ascendent</option>
         <option value="alph_desc">Descendent</option>
       </select>
-      <label>Filtrar por puntuación</label>
+      <label className="filterTitle">
+        &nbsp;&nbsp;Filter by score&nbsp; &nbsp;
+      </label>
       <select onChange={(e) => handleSortByScore(e)}>
         <option>Seleccionar...</option>
-        <option value={"score_asc"}>Ascendent</option>
-        <option value={"score_desc"}>Descendent</option>
+        <option value="score_asc">Ascendent</option>
+        <option value="score_desc">Descendent</option>
       </select>
-      <label>Filter by diets</label>
+      <label className="filterTitle">
+        &nbsp;&nbsp;Filter by diets&nbsp;&nbsp;
+      </label>
       <select onChange={(e) => handleFilterDiets(e)}>
         <option>Seleccionar...</option>
         <option value={"all"}>Todas</option>

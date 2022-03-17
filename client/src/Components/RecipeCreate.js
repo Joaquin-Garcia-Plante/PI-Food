@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
+import { Link } from "react-router-dom";
 import { postRecipe } from "../Store/actions";
 import "../Styles/RecipeCreate.css";
 function RecipeCreate() {
@@ -73,84 +74,94 @@ function RecipeCreate() {
       instructions: "",
       diet: [],
     });
+    let checkbox = document.querySelectorAll(".checkbox");
+    checkbox.forEach((c) => {
+      c.checked = false;
+    });
   }
   return (
-    <div className="container-form">
-      <h1>Crea tu propia receta!</h1>
-      <form onSubmit={handleSubmit}>
-        <div>
-          <p>Title:</p>
-          <input
-            type={"text"}
-            id="title"
-            name="title"
-            value={data.title}
-            onChange={handleOnChange}
-          ></input>
-        </div>
-        <div>
-          <p>Summary:</p>
-          <textarea
-            type={"text"}
-            id="summary"
-            name="summary"
-            value={data.summary}
-            onChange={handleOnChange}
-          ></textarea>
-        </div>
-        <div>
-          <p>Instructions</p>
-          <textarea
-            id="instructions"
-            name="instructions"
-            value={data.instructions}
-            onChange={handleOnChange}
-          ></textarea>
-        </div>
-        <div className="score">
-          <label>Score &nbsp;</label>
-          <input
-            min="0"
-            max="100"
-            value={data.spoonacularScore}
-            id="spoonacularScore"
-            name="spoonacularScore"
-            type={"number"}
-            onChange={handleOnChange}
-          ></input>
-          &nbsp;
-          <label>Healt Score &nbsp;</label>
-          <input
-            min="0"
-            max="100"
-            id="healthScore"
-            name="healthScore"
-            type={"number"}
-            value={data.healthScore}
-            onChange={handleOnChange}
-          ></input>
-        </div>
-        <br></br>
-        <label>Diets</label>
-        <div className="container-diets">
-          {diet.map((d) => {
-            return (
-              <div key={d}>
-                <input
-                  value={d}
-                  type={"checkbox"}
-                  id={d}
-                  onChange={handleChangeCheck}
-                ></input>
-                <label>{d}</label>
-              </div>
-            );
-          })}
-        </div>
+    <>
+      <Link to={"/home"} style={{ textDecoration: "none" }}>
+        <q className="button">Back to home</q>
+      </Link>
+      <div className="container-form">
+        <h1>Crea tu propia receta!</h1>
+        <form onSubmit={handleSubmit}>
+          <div>
+            <p>Title:</p>
+            <input
+              type={"text"}
+              id="title"
+              name="title"
+              value={data.title}
+              onChange={handleOnChange}
+            ></input>
+          </div>
+          <div>
+            <p>Summary:</p>
+            <textarea
+              type={"text"}
+              id="summary"
+              name="summary"
+              value={data.summary}
+              onChange={handleOnChange}
+            ></textarea>
+          </div>
+          <div>
+            <p>Instructions</p>
+            <textarea
+              id="instructions"
+              name="instructions"
+              value={data.instructions}
+              onChange={handleOnChange}
+            ></textarea>
+          </div>
+          <div className="score">
+            <label>Score &nbsp;</label>
+            <input
+              min="0"
+              max="100"
+              value={data.spoonacularScore}
+              id="spoonacularScore"
+              name="spoonacularScore"
+              type={"number"}
+              onChange={handleOnChange}
+            ></input>
+            &nbsp;
+            <label>Healt Score &nbsp;</label>
+            <input
+              min="0"
+              max="100"
+              id="healthScore"
+              name="healthScore"
+              type={"number"}
+              value={data.healthScore}
+              onChange={handleOnChange}
+            ></input>
+          </div>
+          <br></br>
+          <label>Diets</label>
+          <div className="container-diets">
+            {diet.map((d) => {
+              return (
+                <div key={d}>
+                  <input
+                    className="checkbox"
+                    value={d}
+                    type={"checkbox"}
+                    id={d}
+                    onChange={handleChangeCheck}
+                  ></input>
+                  <label>{d}</label>
+                </div>
+              );
+            })}
+          </div>
 
-        <input type={"submit"} value="submit"></input>
-      </form>
-    </div>
+          <input type={"submit"} value="submit"></input>
+        </form>
+      </div>
+    </>
   );
 }
 

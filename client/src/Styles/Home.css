@@ -1,3 +1,28 @@
 .welcomeTitle {
-  color: beige;
+  font-family: "Cormorant Garamond", serif;
+  font-size: 30px;
+  font-weight: 300;
+  line-height: 60px;
+  margin: 10px 0;
+  text-decoration: none;
+  color: white;
+}
+select {
+  appearance: none;
+  background-color: lightcyan;
+  background-position: right;
+  background-repeat: no-repeat;
+  border-color: #b3cccc;
+  border-radius: 0.2em;
+  border-style: solid;
+  border-width: 1px;
+  border-right-color: #869999;
+  border-bottom-color: #869999;
+  color: black;
+  padding: 0.33em 0.5em;
+  width: 10%;
+}
+
+select::-ms-expand {
+  display: none;
 }

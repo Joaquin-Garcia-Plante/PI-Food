@@ -3,6 +3,9 @@ import axios from "axios";
 //En esta funcion es donde sucede toda la conexion entre el front y el back
 export function getRecipes() {
   return async function (dispatch) {
+    dispatch({
+      type: "RECIPE_LIST_LOADING",
+    });
     try {
       var json = await axios.get("http://localhost:3001/recipes");
       return dispatch({
@@ -21,6 +24,9 @@ export function getRecipes() {
 
 export function getRecipe(id) {
   return async function (dispatch) {
+    dispatch({
+      type: "RECIPE_LIST_LOADING",
+    });
     try {
       var json = await axios.get(`http://localhost:3001/recipes/${id}`);
       return dispatch({
@@ -37,10 +43,16 @@ export function getRecipeBySearch(data) {
   return async function (dispatch) {
     try {
       var json = await axios.get(`http://localhost:3001/recipes?name=${data}`);
-      return dispatch({
-        type: "SEARCH_RECIPE",
-        payload: json.data,
-      });
+      if (json.data.length == 0) {
+        return dispatch({
+          type: "NO_MATCH",
+        });
+      } else {
+        return dispatch({
+          type: "SEARCH_RECIPE",
+          payload: json.data,
+        });
+      }
     } catch (e) {
       console.log(e);
     }
