@@ -9,7 +9,7 @@ function LandingPage() {
         <h1 className="h1">Food App</h1>
         <Link to={"/home"}>
           <button className="btn" data-hover="Lets GO!">
-            <div>See recipes</div>
+            <div> See recipes </div>
           </button>
         </Link>
       </section>
