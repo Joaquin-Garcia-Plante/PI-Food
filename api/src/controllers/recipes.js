@@ -10,7 +10,7 @@ const recipes = async (req, res) => {
     if (respuesta.length) {
       res.status(200).send(respuesta);
     } else {
-      res.status(200).send("No se encontraron coincidencias");
+      res.status(200).send([]);
     }
   } else {
     let allRecipes = await getAllRecipes();

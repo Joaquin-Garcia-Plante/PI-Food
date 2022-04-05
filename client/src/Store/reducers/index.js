@@ -28,9 +28,7 @@ function rootReducer(state = initialState, action) {
       const statusFiltered =
         //Si mi payload es all me devuelve todas las recetas
         //Sino entra a las recetas y filtra las que coincidan con mi payload
-        action.payload === "all"
-          ? allRecipes
-          : allRecipes.filter((el) => el.diets.includes(action.payload));
+        action.payload === "all" ? allRecipes : allRecipes.filter((el) => el.diets.includes(action.payload));
       return {
         ...state,
         recipes: statusFiltered,
@@ -72,12 +70,6 @@ function rootReducer(state = initialState, action) {
         recipes: action.payload,
         noMatch: false,
       };
-    case "NO_MATCH":
-      return {
-        ...state,
-        noMatch: true,
-      };
-
     case "ORDER_BY_SCORE":
       let sortedArrByScore =
         action.payload === "score_asc"

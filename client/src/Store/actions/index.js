@@ -43,16 +43,10 @@ export function getRecipeBySearch(data) {
   return async function (dispatch) {
     try {
       var json = await axios.get(`http://localhost:3001/recipes?name=${data}`);
-      if (json.data.length == 0) {
-        return dispatch({
-          type: "NO_MATCH",
-        });
-      } else {
-        return dispatch({
-          type: "SEARCH_RECIPE",
-          payload: json.data,
-        });
-      }
+      return dispatch({
+        type: "SEARCH_RECIPE",
+        payload: json.data,
+      });
     } catch (e) {
       console.log(e);
     }
